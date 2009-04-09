@@ -30,12 +30,16 @@ URL:		http://commons.apache.org/chain
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	java(JavaServerFaces) = 1.1
 BuildRequires:	java-commons-logging
-BuildRequires:	java-commons-digester
+BuildRequires:	java-commons-digester >= 1.8
 BuildRequires:	java-portletapi10
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+Requires:	java(JavaServerFaces) = 1.1
+Requires:	java-commons-logging
+Requires:	java-commons-digester >= 1.8
+Requires:	java-portletapi10
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -103,7 +107,7 @@ Manual for %{name}.
 %build
 export JAVA_HOME="%{java_home}"
 
-required_jars="servlet commons-logging commons-digester portletapi10"
+required_jars="servlet commons-logging commons-digester portletapi10 faces-api-1.1"
 CLASSPATH=$(build-classpath $required_jars)
 export CLASSPATH
 
