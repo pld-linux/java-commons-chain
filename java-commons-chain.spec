@@ -28,9 +28,9 @@ Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-1.2-src.t
 URL:		http://commons.apache.org/chain
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	java(JavaServerFaces) = 1.1
 BuildRequires:	java-commons-logging
 BuildRequires:	java-commons-digester
-BuildRequires:	java-myfaces
 BuildRequires:	java-portletapi10
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm >= 4.4.9-56
