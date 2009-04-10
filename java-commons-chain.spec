@@ -17,33 +17,33 @@
 Summary:	"Chain of Responsibility" pattern implemention
 Name:		java-commons-chain
 Version:	1.2
-Release:	0.1
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Java
-Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-1.2-src.tar.gz
+Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
 # Source0-md5:	a94fef07630d88c859fb8397ddbcb6ba
 URL:		http://commons.apache.org/chain
 BuildRequires:	ant
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	java(JavaServerFaces) = 1.1
 BuildRequires:	java(portlet) = 1.0
 BuildRequires:	java-commons-digester >= 1.8
 BuildRequires:	java-commons-logging
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 %if %{with tests}
 BuildRequires:	ant-junit
-BuildRequires:	java-commons-collections
 BuildRequires:	java-commons-beanutils
+BuildRequires:	java-commons-collections
 BuildRequires:	junit
 %endif
 Requires:	java(JavaServerFaces) = 1.1
 Requires:	java(portlet) = 1.0
-Requires:	java-commons-logging
 Requires:	java-commons-digester >= 1.8
+Requires:	java-commons-logging
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
