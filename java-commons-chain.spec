@@ -1,9 +1,6 @@
-# TODO:
-# - %%install and %%files
-# - package BRed java-myfaces
 #
 # Conditional build:
-%bcond_without	javadoc		# don't build javadoc
+%bcond_with	javadoc		# don't build javadoc
 %bcond_without	tests		# don't build and run tests
 
 %if "%{pld_release}" == "ti"
@@ -26,20 +23,27 @@ Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-1.2-src.tar.gz
 # Source0-md5:	a94fef07630d88c859fb8397ddbcb6ba
 URL:		http://commons.apache.org/chain
+BuildRequires:	ant
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	java(JavaServerFaces) = 1.1
-BuildRequires:	java-commons-logging
+BuildRequires:	java(portlet) = 1.0
 BuildRequires:	java-commons-digester >= 1.8
-BuildRequires:	java-portletapi10
+BuildRequires:	java-commons-logging
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+%if %{with tests}
+BuildRequires:	ant-junit
+BuildRequires:	java-commons-collections
+BuildRequires:	java-commons-beanutils
+BuildRequires:	junit
+%endif
 Requires:	java(JavaServerFaces) = 1.1
+Requires:	java(portlet) = 1.0
 Requires:	java-commons-logging
 Requires:	java-commons-digester >= 1.8
-Requires:	java-portletapi10
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -102,33 +106,28 @@ Manual for %{name}.
 
 %prep
 %setup -q -n %{srcname}-%{version}-src
-#%{__sed} -i -e 's,\r$,,' build.xml
 
 %build
 export JAVA_HOME="%{java_home}"
 
-required_jars="servlet commons-logging commons-digester portletapi10 faces-api-1.1"
-CLASSPATH=$(build-classpath $required_jars)
-export CLASSPATH
+required_jars="servlet commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
+%if %{with tests}
+required_jars=$required_jars" junit commons-collections commons-beanutils-core"
+%endif
+
+CLASSPATH=$(build-classpath $required_jars):target/classes:target/test-classes
 
 export LC_ALL=en_US # source code not US-ASCII
 
-%ant -Dbuild.sysclasspath=only
+%ant -Dbuild.sysclasspath=only jar %{?with_javadoc:javadoc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
 # jars
-cp -a dist/%{srcname}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-%{version}.jar
+cp -a target/%{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-%{version}.jar
 ln -s %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}.jar
-
-# for jakarta packages:
-for a in dist/*.jar; do
-	jar=${a##*/}
-	cp -a dist/$jar $RPM_BUILD_ROOT%{_javadir}/${jar%%.jar}-%{version}.jar
-	ln -s ${jar%%.jar}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$jar
-done
 
 # javadoc
 %if %{with javadoc}
@@ -136,10 +135,6 @@ install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 cp -a dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
 %endif
-
-# demo
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-cp -a demo/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -150,16 +145,6 @@ ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 %files
 %defattr(644,root,root,755)
 %{_javadir}/*.jar
-
-%files doc
-%defattr(644,root,root,755)
-%doc docs/*
-
-%if 0
-%files demo
-%defattr(644,root,root,755)
-%{_examplesdir}/%{name}-%{version}
-%endif
 
 %if %{with javadoc}
 %files javadoc
