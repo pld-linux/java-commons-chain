@@ -17,7 +17,7 @@
 Summary:	"Chain of Responsibility" pattern implemention
 Name:		java-commons-chain
 Version:	1.2
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
@@ -40,11 +40,13 @@ BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
 BuildRequires:	junit
 %endif
+BuildRequires:	servlet
 Requires:	java(JavaServerFaces) = 1.1
 Requires:	java(portlet) = 1.0
 Requires:	java-commons-digester >= 1.8
 Requires:	java-commons-logging
 Requires:	jpackage-utils
+Requires:	servlet
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
