@@ -11,13 +11,11 @@
 #
 %include	/usr/lib/rpm/macros.java
 
-# Name without java- prefix. If it is aplication, not a library,
-# just do s/srcname/name/g
 %define		srcname		commons-chain
 Summary:	"Chain of Responsibility" pattern implemention
 Name:		java-commons-chain
 Version:	1.2
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
@@ -25,7 +23,7 @@ Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version
 URL:		http://commons.apache.org/chain
 BuildRequires:	ant
 BuildRequires:	java(JavaServerFaces) = 1.1
-BuildRequires:	java(portlet) = 1.0
+BuildRequires:	java(Portlet) = 1.0
 BuildRequires:	java-commons-digester >= 1.8
 BuildRequires:	java-commons-logging
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
@@ -40,13 +38,13 @@ BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
 BuildRequires:	junit
 %endif
-BuildRequires:	servlet
+BuildRequires:	java(Servlet)
 Requires:	java(JavaServerFaces) = 1.1
-Requires:	java(portlet) = 1.0
+Requires:	java(Portlet) = 1.0
+Requires:	java(Servlet)
 Requires:	java-commons-digester >= 1.8
 Requires:	java-commons-logging
 Requires:	jpackage-utils
-Requires:	servlet
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
