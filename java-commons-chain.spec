@@ -36,7 +36,7 @@ BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	ant-junit
 BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
-BuildRequires:	junit
+BuildRequires:	java-junit
 %endif
 BuildRequires:	java(Servlet)
 Requires:	java(JavaServerFaces) = 1.1
@@ -110,7 +110,7 @@ Manual for %{name}.
 %build
 export JAVA_HOME="%{java_home}"
 
-required_jars="servlet commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
+required_jars="servlet-api commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
 %if %{with tests}
 required_jars=$required_jars" junit commons-collections commons-beanutils-core"
 %endif
