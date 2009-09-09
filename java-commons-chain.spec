@@ -38,10 +38,10 @@ BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
 BuildRequires:	java-junit
 %endif
-BuildRequires:	java(Servlet)
+BuildRequires:	java(Servlet) = 2.4
 Requires:	java(JavaServerFaces) = 1.1
 Requires:	java(Portlet) = 1.0
-Requires:	java(Servlet)
+Requires:	java(Servlet) = 2.4
 Requires:	java-commons-digester >= 1.8
 Requires:	java-commons-logging
 Requires:	jpackage-utils
@@ -110,7 +110,7 @@ Manual for %{name}.
 %build
 export JAVA_HOME="%{java_home}"
 
-required_jars="servlet-api commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
+required_jars="servlet-api-2.4 commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
 %if %{with tests}
 required_jars=$required_jars" junit commons-collections commons-beanutils-core"
 %endif
