@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_with	javadoc		# don't build javadoc
-%bcond_without	tests		# don't build and run tests
+%bcond_with	tests		# don't build and run tests
 
 %if "%{pld_release}" == "ti"
 %bcond_without	java_sun	# build with gcj
@@ -20,6 +20,7 @@ License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
 # Source0-md5:	a94fef07630d88c859fb8397ddbcb6ba
+Patch0:		%{name}-notests.patch
 URL:		http://commons.apache.org/chain
 BuildRequires:	ant
 BuildRequires:	java(JavaServerFaces) = 1.1
@@ -38,10 +39,10 @@ BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
 BuildRequires:	java-junit
 %endif
-BuildRequires:	java(Servlet) = 2.4
+BuildRequires:	java(Servlet)
 Requires:	java(JavaServerFaces) = 1.1
 Requires:	java(Portlet) = 1.0
-Requires:	java(Servlet) = 2.4
+Requires:	java(Servlet)
 Requires:	java-commons-digester >= 1.8
 Requires:	java-commons-logging
 Requires:	jpackage-utils
@@ -107,10 +108,12 @@ Manual for %{name}.
 %prep
 %setup -q -n %{srcname}-%{version}-src
 
+%patch0 -p1
+
 %build
 export JAVA_HOME="%{java_home}"
 
-required_jars="servlet-api-2.4 commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
+required_jars="servlet-api commons-logging commons-digester portlet-api-1.0 faces-api-1.1"
 %if %{with tests}
 required_jars=$required_jars" junit commons-collections commons-beanutils-core"
 %endif
@@ -119,7 +122,7 @@ CLASSPATH=$(build-classpath $required_jars):target/classes:target/test-classes
 
 export LC_ALL=en_US # source code not US-ASCII
 
-%ant -Dbuild.sysclasspath=only jar %{?with_javadoc:javadoc}
+%ant -Dbuild.sysclasspath=only %{?with_tests:test} jar %{?with_javadoc:javadoc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
