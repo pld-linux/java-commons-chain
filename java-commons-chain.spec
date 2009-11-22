@@ -40,6 +40,7 @@ BuildRequires:	java-commons-collections
 BuildRequires:	java-junit
 %endif
 BuildRequires:	java(Servlet)
+BuildRequires:	sed >= 4
 Requires:	java(JavaServerFaces) = 1.1
 Requires:	java(Portlet) = 1.0
 Requires:	java(Servlet)
@@ -108,6 +109,7 @@ Manual for %{name}.
 %prep
 %setup -q -n %{srcname}-%{version}-src
 
+%{__sed} -i -e 's,\r$,,' build.xml
 %patch0 -p1
 
 %build
