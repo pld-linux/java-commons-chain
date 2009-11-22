@@ -1,0 +1,11 @@
+--- commons-chain-1.2-src/build.xml~	2008-05-29 18:43:21.000000000 +0200
++++ commons-chain-1.2-src/build.xml	2009-11-22 01:46:21.000000000 +0100
+@@ -66,7 +66,7 @@
+       </fileset>
+     </copy>
+   </target>
+-  <target name="jar" description="o Create the jar" depends="compile,test">
++  <target name="jar" description="o Create the jar" depends="compile">
+     <jar jarfile="${defaulttargetdir}/${final.name}.jar" excludes="**/package.html" basedir="${classesdir}">
+     </jar>
+   </target>
