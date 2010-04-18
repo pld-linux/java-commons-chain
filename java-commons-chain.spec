@@ -3,12 +3,6 @@
 %bcond_with	javadoc		# don't build javadoc
 %bcond_with	tests		# don't build and run tests
 
-%if "%{pld_release}" == "ti"
-%bcond_without	java_sun	# build with gcj
-%else
-%bcond_with	java_sun	# build with java-sun
-%endif
-#
 %include	/usr/lib/rpm/macros.java
 
 %define		srcname		commons-chain
@@ -23,12 +17,11 @@ Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version
 Patch0:		%{name}-notests.patch
 URL:		http://commons.apache.org/chain
 BuildRequires:	ant
-BuildRequires:	java(JavaServerFaces) = 1.1
+BuildRequires:	java(javaserverfaces) = 1.1
 BuildRequires:	java-commons-digester >= 1.8
 BuildRequires:	java-commons-logging
 BuildRequires:	java-pluto
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpm-javaprov
@@ -39,10 +32,10 @@ BuildRequires:	java-commons-beanutils
 BuildRequires:	java-commons-collections
 BuildRequires:	java-junit
 %endif
-BuildRequires:	java(Servlet)
+BuildRequires:	java(servlet)
 BuildRequires:	sed >= 4
-Requires:	java(JavaServerFaces) = 1.1
-Requires:	java(Servlet)
+Requires:	java(javaserverfaces) = 1.1
+Requires:	java(servlet)
 Requires:	java-commons-digester >= 1.8
 Requires:	java-commons-logging
 Requires:	java-pluto
