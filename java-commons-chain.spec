@@ -9,7 +9,7 @@
 Summary:	"Chain of Responsibility" pattern implemention
 Name:		java-commons-chain
 Version:	1.2
-Release:	4
+Release:	5
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
