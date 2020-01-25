@@ -3,7 +3,6 @@
 %bcond_with	javadoc		# don't build javadoc
 %bcond_with	tests		# don't build and run tests
 
-%include	/usr/lib/rpm/macros.java
 
 %define		srcname		commons-chain
 Summary:	"Chain of Responsibility" pattern implemention
