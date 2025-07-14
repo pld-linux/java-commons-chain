@@ -101,7 +101,7 @@ Manual for %{name}.
 %setup -q -n %{srcname}-%{version}-src
 
 %{__sed} -i -e 's,\r$,,' build.xml
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 export JAVA_HOME="%{java_home}"
