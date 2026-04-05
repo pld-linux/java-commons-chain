@@ -3,12 +3,14 @@
 %bcond_with	javadoc		# don't build javadoc
 %bcond_with	tests		# don't build and run tests
 
+%{?use_default_jdk:%use_default_jdk 8}
+
 
 %define		srcname		commons-chain
 Summary:	"Chain of Responsibility" pattern implemention
 Name:		java-commons-chain
 Version:	1.2
-Release:	6
+Release:	7
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/chain/source/commons-chain-%{version}-src.tar.gz
@@ -20,10 +22,10 @@ BuildRequires:	java(jsf) = 1.1
 BuildRequires:	java-commons-digester >= 1.8
 BuildRequires:	java-commons-logging
 BuildRequires:	java-pluto
-BuildRequires:	jdk
+%buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
+BuildRequires:	rpmbuild(macros) >= 1.556
 %if %{with tests}
 BuildRequires:	ant-junit
 BuildRequires:	java-commons-beanutils
